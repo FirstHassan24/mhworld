@@ -1,0 +1,30 @@
+<!DOCKTYPE html>
+<html>
+<head>
+<!--make the title dynamicaly update what it display depending on which function im using:-->
+<title>
+{% if is_edit %}Edit monster {% else %}Create Monster {% endif %}
+</title>
+</head>
+<!--display the search bar and submit bar-->
+<body>
+<h1>
+<!--display the edit page if the user is editing else display the create page:-->
+{% if is_edit %} Edit monster {% else %} create a new monster {% endif %}
+</h1>
+<!--tell django to only display posted data:-->
+<form method ="post">
+<!--use the token to protect from maliciouse attacks-->
+{% csrf_token %}
+<!--render the form fields that shows our model:-->
+{{ form.as_p }}
+<!--make a button for creating monster and the text changes depending if user is creating or editing:-->
+<button type=submit>
+{% if is_edit%} update {% else %} create {% endif %}
+</button>
+</form>
+<!--link back to the list of monsters:-->
+<a href="{% url 'monster-list' %}">
+</a>
+</body>
+</html>
