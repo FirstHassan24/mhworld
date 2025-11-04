@@ -12,7 +12,7 @@ class Monster(models.Model):
     #add a small description for each monster explaining their biography:
     description = models.CharField(max_length=500,null=True,blank=True)
     #add an image for each monster:
-    image_url = models.UrlField()
+    image_url = models.URLField()
     #make django show me the name when printing the monster:
     def __str__(self):
         return self.name
