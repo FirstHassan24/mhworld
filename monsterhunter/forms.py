@@ -9,5 +9,5 @@ class MonsterForm(forms.ModelForm):
     class Meta:
         #asscociate this form with your monster model:
         model = Monster
-        fields = "__all__"
+        fields = ["name","type","element","description"]
         
