@@ -16,10 +16,11 @@ Monster List
 <!--loop over the monster model and display each monster as a list:-->
 {% for monster in monsters%}
 <!--grab the name field of the monsters and make it a list: check if monster.name is showing update-->
-<li> {{Monster.name}} - {{monster.type}}</li>
+<li> {{monster.name}} - {{monster.type}}</li>
 {% endfor %}
 </ul>
 {% else %}
 <p> no monster found create one above! </p>
+{% endif %}
 </body>
 </html>
