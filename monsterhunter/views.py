@@ -20,6 +20,12 @@ def create_monster(request):
             form.save()
             #after creating send the user back to the monster list:
             return redirect("monster-list")
+    #if the user is just visiting the page display the empty form model:
+    else:
+        #stores the form model in a variable
+        form=MonsterForm()
+        #render the form model inside the form template:
+        return render(request,"monsterhunter/monster_form.html",{"form":form})
         
 #create a function for storing the monsters:
 def monster_list(request):
