@@ -9,9 +9,11 @@ Monster List
 <h1>Monster List </h1>
 <h2> amount of monster:{{monsters|length}} </h2>
 <!--create a link to summon monsters using the create-monster url:-->
+<a href="{% url 'create-monster'%}"> create a new monster </a>
 <!--loop over the monster model and display each monster as a list:-->
 <ul>
 {% for monster in monsters%}
+<li> Monster</li>
 </ul>
 </body>
 </html>
