@@ -1,4 +1,4 @@
-<!DOCKTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>
@@ -10,10 +10,16 @@ Monster List
 <h2> amount of monster:{{monsters|length}} </h2>
 <!--create a link to summon monsters using the create-monster url:-->
 <a href="{% url 'create-monster'%}"> create a new monster </a>
-<!--loop over the monster model and display each monster as a list:-->
+<!--check if the monsters dict is true:-->
+{% if monsters %}
 <ul>
+<!--loop over the monster model and display each monster as a list:-->
 {% for monster in monsters%}
-<li> Monster</li>
+<!--grab the name field of the monsters and make it a list-->
+<li> {{Monster.name}} - {{monster.type}}</li>
+{% endfor %}
 </ul>
+{% else %}
+<p> no monster found create one above! </p>
 </body>
 </html>
