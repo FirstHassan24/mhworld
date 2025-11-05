@@ -57,5 +57,10 @@ def monster_update(request,pk):
     #Render the same form template; pass a flag so we can change button text to “Update”:
         return render(request,"monsterhunter/monster_form.html",{"form":form,"is_edit":True})
 
+#create a  function that delete a monster:
+def delete_monster(request,pk):
+    #
+
+
         
     
