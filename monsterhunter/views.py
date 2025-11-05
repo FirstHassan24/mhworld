@@ -59,7 +59,11 @@ def monster_update(request,pk):
 
 #create a  function that delete a monster:
 def delete_monster(request,pk):
-    #
+    #store the value for each individual monster:
+    monster = get_object_or_404(Monster,pk=pk)
+    #if its a post request delete the monster:
+    if request.method == "POST":
+        
 
 
         
