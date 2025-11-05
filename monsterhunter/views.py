@@ -55,7 +55,7 @@ def monster_update(request,pk):
         messages.error(request,"please fix this error")
         form = MonsterForm(instance=monster)
     #Render the same form template; pass a flag so we can change button text to “Update”:
-        return render(request,"monsterhunt/monster_form.html",{"form":form,"is_edit":True})
+        return render(request,"monsterhunter/monster_form.html",{"form":form,"is_edit":True})
 
         
     
