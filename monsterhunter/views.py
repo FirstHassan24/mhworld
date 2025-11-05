@@ -33,3 +33,29 @@ def monster_list(request):
     monsters = Monster.objects.all()
     #tell it which folder and file html to render the list:
     return render(request,"monsterhunter/monster_list.html",{"monsters":monsters})
+
+#create a function for updating each monster information:
+def monster_update(request,pk):
+    #find a monster by its pk by acessing the model or show not found:
+    monster = get_object_or_404(Monster,pk=pk)
+    #check if the user submited the form:
+    if request.method == "POST":
+        #bind the form to the posted data and existing instances:
+        form = MonsterForm(request.POST, instance=monster)
+        #validate the form:
+        form.is_valid()
+        #save the changes to the same row in the database:
+        form.save()
+        #create a message that tells you if you sucessfully updated:
+        messages.success(request,"monster updated.")
+        #after saving it return to the homepage:
+        return redirect("monster-list")
+    #show whats wrong when it fails:
+    else:
+        messages.error(request,"please fix this error")
+        form = MonsterForm(instance=monster)
+    #Render the same form template; pass a flag so we can change button text to “Update”:
+        return render(request,"monsterhunt/monster_form.html",{"form":form,"is_edit":True})
+
+        
+    
