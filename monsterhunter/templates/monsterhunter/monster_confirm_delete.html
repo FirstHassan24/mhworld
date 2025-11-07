@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+delete confirmation  for {{monster.name}}
+</title>
+</head>
+<body>
+<h1> confirm deleteion</h1>
+<p>are you sure you want to delete:<strong>{{monster.name}}</strong></p>
+<!--make a confirm button for deletion:-->
+<form method="post"></form>
+{% csrf_token%}
+<button type="submit">YES,unsummon </button>
+</form>
+<p><a href="{% url 'monster-list' %}">cancel </a> </p>
+</body>
+</html>

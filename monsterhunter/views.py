@@ -63,7 +63,12 @@ def delete_monster(request,pk):
     monster = get_object_or_404(Monster,pk=pk)
     #if its a post request delete the monster:
     if request.method == "POST":
-        
+        #use the delete method to delete that monster:
+        monster.delete()
+        #return to the monster list:
+        return redirect("monster-list")
+    #show the confirmation page for get request:
+    return render(request,"monsterhunter/monster_confirm_delete.html",{"monster":monster})
 
 
         

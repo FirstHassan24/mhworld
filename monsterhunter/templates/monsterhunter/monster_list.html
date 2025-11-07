@@ -19,6 +19,8 @@ Monster List
 <li> {{monster.name}} - {{monster.type}}
 <a href="{% url 'update-monster' pk=monster.pk %}"> edit 
 </a>
+<!--put the delete button here:-->
+<a href="{% url 'delete-monster' pk=monster.pk %}"> delete</a>
 </li>
 {% endfor %}
 </ul>
