@@ -9,7 +9,7 @@ delete confirmation  for {{monster.name}}
 <h1> confirm deleteion</h1>
 <p>are you sure you want to delete:<strong>{{monster.name}}</strong></p>
 <!--make a confirm button for deletion:-->
-<form method="post"></form>
+<form method="post">
 {% csrf_token%}
 <button type="submit">YES,unsummon </button>
 </form>
