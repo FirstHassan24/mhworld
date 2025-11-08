@@ -70,6 +70,24 @@ def delete_monster(request,pk):
     #show the confirmation page for get request:
     return render(request,"monsterhunter/monster_confirm_delete.html",{"monster":monster})
 
+#create a function for importing monsters:
+imported_monster = "https://mhw-db.com"
+def import_monster(request):
+    #if its not a post return to the list:
+    if request.method != "POST":
+        #do this incase of a GET request:
+        return redirect("monster-list")
+    #read the servants name the user typed then look it up in the database:
+    query_name = requests.POST.get("query_name","").strip()
+    #if the user didnt type anything show a message error:
+    if not query_name:
+        messages.error(request,"please enter a monster")
+        #send them back to the list:
+        return redirect("monster-list")
+    #if its a post request send it to the API:
+    
+    
+
 
         
     
