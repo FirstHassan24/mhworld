@@ -98,6 +98,24 @@ def import_monster(request):
         messages.error(request,f"API error{e}")
         return redirect("monster-list")
     #try to find the name of the monster that matches the name(case insensitive)
+    match = None
+    q_lower = query_name.lower()
+    #loop over the data:
+    for m in data:
+        #1.get the names of the monsters:
+        name = s.get("name")
+        #skip if its missing:
+        if not name:
+            continue
+        #if the api name contains what user input pick the first match:
+        if q_lower in name.lower():
+            #we give the empty match a new match of the first monster:
+            match = s
+            break
+        #if no match found let the user know:
+        if match is None:
+            messages.error(request,f"no match found for {query_name}. try a more exact name :)")
+        
         
         
     
