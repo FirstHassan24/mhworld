@@ -77,7 +77,7 @@ def import_monster(request):
     if request.method != "POST":
         #do this incase of a GET request:
         return redirect("monster-list")
-    #read the servants name the user typed then look it up in the database:
+    #read the monster name the user typed then look it up in the database:
     query_name = requests.POST.get("query_name","").strip()
     #if the user didnt type anything show a message error:
     if not query_name:
@@ -85,6 +85,7 @@ def import_monster(request):
         #send them back to the list:
         return redirect("monster-list")
     #if its a post request send it to the API:
+    
     
     
 
