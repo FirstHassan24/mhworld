@@ -84,7 +84,22 @@ def import_monster(request):
         messages.error(request,"please enter a monster")
         #send them back to the list:
         return redirect("monster-list")
-    #if its a post request send it to the API:
+    #use try for code that might fail:
+    try:
+        #if its a post request send it to the API:
+        #1.call the api:
+        resp= requests.get(imported_monster,timeout=20)
+        #2.raise an error if you didnt get the http status of 200
+        resp.raise_for_status()
+        #3.convert it into python data:
+        data = resp.json()
+    except Exception as e:
+        #if the api call fail show a friendly message:
+        messages.error(request,f"API error{e}")
+        return redirect("monster-list")
+    #try to find the name of the monster that matches the name(case insensitive)
+        
+        
     
     
     
