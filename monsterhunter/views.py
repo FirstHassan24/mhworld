@@ -103,18 +103,39 @@ def import_monster(request):
     #loop over the data:
     for m in data:
         #1.get the names of the monsters:
-        name = s.get("name")
+        name = m.get("name")
         #skip if its missing:
         if not name:
             continue
-        #if the api name contains what user input pick the first match:
+        #if the api name contains what the user input pick the first match:
         if q_lower in name.lower():
             #we give the empty match a new match of the first monster:
-            match = s
+            match = m
             break
         #if no match found let the user know:
         if match is None:
             messages.error(request,f"no match found for {query_name}. try a more exact name :)")
+            #take them back to the list:
+            return redirect("monster-list")
+        #if we do find a match map them to our model fields:
+        name = match.get("name")
+        species = match.get("species")
+        elements = match.get("elements")
+        description = match.get("description")
+        #use update_or_create to reimport instead of duplicating(all expressions inside of it):
+        obj,created = Monster.objects.update_or_create(
+        #look up unqiue names:
+        name=name
+        defaults = {
+            #update/create species:
+            "species":species,
+            #update/create elements:
+            "elements":elements,
+            #update/create descriptions:
+            "description":description,
+        },
+        )
+        
         
         
         
