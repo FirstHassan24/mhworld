@@ -109,7 +109,7 @@ def import_monster(request):
             continue
         #if the api name contains what the user input pick the first match:
         if q_lower in name.lower():
-            #we give the empty match a new match of the first monster:
+            #we give match all of the first monsters data(name,species,etc):
             match = m
             break
         #if no match found let the user know:
@@ -117,7 +117,7 @@ def import_monster(request):
             messages.error(request,f"no match found for {query_name}. try a more exact name :)")
             #take them back to the list:
             return redirect("monster-list")
-        #if we do find a match map them to our model fields:
+        #extract each indiviual data from match and  map them to our model fields:
         name = match.get("name")
         species = match.get("species")
         elements = match.get("elements")
