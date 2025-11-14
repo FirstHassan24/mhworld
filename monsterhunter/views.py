@@ -70,7 +70,7 @@ def delete_monster(request,pk):
     #show the confirmation page for get request:
     return render(request,"monsterhunter/monster_confirm_delete.html",{"monster":monster})
 
-#create a function for importing monsters:
+#3. connect to an api:
 imported_monster = "https://mhw-db.com"
 def import_monster(request):
     #if its not a post return to the list:
@@ -125,7 +125,7 @@ def import_monster(request):
         #use update_or_create to reimport instead of duplicating(all expressions inside of it):
         obj,created = Monster.objects.update_or_create(
         #look up unqiue names:
-        name=name
+        name=name,
         defaults = {
             #update/create species:
             "species":species,
@@ -133,8 +133,7 @@ def import_monster(request):
             "elements":elements,
             #update/create descriptions:
             "description":description,
-        },
-        )
+        })
         
         
         

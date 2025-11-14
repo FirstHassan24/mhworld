@@ -87,3 +87,20 @@ if __name__ == "__main__":
     # print(process_data((10, 20)))           # Should print 30
     # print(process_data({"value": 100}))     # Should print 100
     # print(process_data("something else"))   # Should print "Unknown format
+    
+    #chat::
+    def trace(n):
+    print(f"Entering trace({n})")
+
+    if n == 0:
+        print("Base case reached! Returning 0")
+        return 0
+
+    # recursive call
+    result = trace(n - 1)
+
+    print(f"the outer function is waiting for {result}")# ??? ← you fill in this line
+    # This line runs AFTER the inner trace(n-1) finishes.
+
+    print(f"Returning from trace({n})")
+    return n
