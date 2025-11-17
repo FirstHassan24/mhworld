@@ -8,6 +8,12 @@ Monster List
 <body>
 <h1>Monster List </h1>
 <h2> amount of monster:{{monsters|length}} </h2>
+<!--create a searchbar to import monsters from the API:-->
+<form method="post" action="{% url 'import'%}">  {% csrf_token %}
+<!--stores the value the user input from the view-->
+<input type="text" name="query_name" placeholder="monster name" required>
+<button type="submit">import monster </button>
+</form>
 <!--create a link to summon monsters using the create-monster url:-->
 <a href="{% url 'create-monster'%}"> create a new monster </a>
 <!--check if the monsters dict is true:-->
