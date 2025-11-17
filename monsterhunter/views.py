@@ -78,7 +78,7 @@ def import_monster(request):
         #do this incase of a GET request:
         return redirect("monster-list")
     #read the monster name the user typed then look it up in the database:
-    query_name = requests.POST.get("query_name","").strip()
+    query_name = request.POST.get("query_name","").strip()
     #if the user didnt type anything show a message error:
     if not query_name:
         messages.error(request,"please enter a monster")
