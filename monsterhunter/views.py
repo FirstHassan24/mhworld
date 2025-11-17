@@ -99,6 +99,7 @@ def import_monster(request):
         return redirect("monster-list")
     #try to find the name of the monster that matches the name(case insensitive)
     match = None
+    #Make it case insensitive:
     q_lower = query_name.lower()
     #loop over the data:
     for m in data:
