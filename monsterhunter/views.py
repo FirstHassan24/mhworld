@@ -71,7 +71,7 @@ def delete_monster(request,pk):
     return render(request,"monsterhunter/monster_confirm_delete.html",{"monster":monster})
 
 #3. connect to an api:
-imported_monster = "https://mhw-db.com"
+imported_monster = "https://mhw-db.com/monsters"
 def import_monster(request):
     #if its not a post return to the list:
     if request.method != "POST":
@@ -85,57 +85,107 @@ def import_monster(request):
         #send them back to the list:
         return redirect("monster-list")
     #use try for code that might fail:
-    try:
-        #if its a post request send it to the API:
-        #1.call the api:
-        resp= requests.get(imported_monster,timeout=20)
-        #2.raise an error if you didnt get the http status of 200
-        resp.raise_for_status()
-        #3.convert it into python data:
-        data = resp.json()
-    except Exception as e:
-        #if the api call fail show a friendly message:
-        messages.error(request,f"API error{e}")
+# Import necessary modules
+from django.shortcuts import render, redirect
+from django.contrib import messages
+import requests
+from .models import Monster
+
+# Define the API endpoint for monster data
+imported_monster = "https://mhw-db.com/monsters"
+
+def import_monster(request):
+    # Check if the request method is not POST
+    if request.method != "POST":
+        # Redirect to monster list if not a POST request
         return redirect("monster-list")
-    #try to find the name of the monster that matches the name(case insensitive)
-    match = None
-    #Make it case insensitive:
-    q_lower = query_name.lower()
-    #loop over the data:
-    for m in data:
-        #1.get the names of the monsters:
-        name = m.get("name")
-        #skip if its missing:
-        if not name:
-            continue
-        #if the api name contains what the user input pick the first match:
-        if q_lower in name.lower():
-            #we give match all of the first monsters data(name,species,etc):
-            match = m
-            break
-        #if no match found let the user know:
+    
+    # Get and clean the search query from the form
+    query_name = request.POST.get("query_name", "").strip()
+    
+    # Check if the query is empty
+    if not query_name:
+        messages.error(request, "Please enter a monster name")
+        return redirect("monster-list")
+    
+    try:
+        # Make an HTTP GET request to the MHW API
+        resp = requests.get(imported_monster, timeout=20)
+        # Raise an exception for HTTP errors (4xx, 5xx)
+        resp.raise_for_status()
+        # Parse the JSON response
+        data = resp.json()
+        
+        # Initialize variables for monster matching
+        match = None
+        # Convert search query to lowercase for case-insensitive comparison
+        q_lower = query_name.lower()
+        
+        # Search through the list of monsters
+        for m in data:
+            # Get the monster's name
+            name = m.get("name")
+            # Skip if no name is found
+            if not name:
+                continue
+            # Check if the search term is in the monster's name
+            if q_lower in name.lower():
+                match = m
+                break
+        
+        # If no match found, show error and redirect
         if match is None:
-            messages.error(request,f"no match found for {query_name}. try a more exact name :)")
-            #take them back to the list:
+            messages.error(request, f"No match found for {query_name}. Try a more exact name :)")
             return redirect("monster-list")
-        #extract each indiviual data from match and  map them to our model fields:
+        
+        # Extract monster data from the match
         name = match.get("name")
         species = match.get("species")
         elements = match.get("elements")
         description = match.get("description")
-        #use update_or_create to reimport instead of duplicating(all expressions inside of it):
-        obj,created = Monster.objects.update_or_create(
-        #look up unqiue names:
-        name=name,
-        defaults = {
-            #update/create species:
-            "species":species,
-            #update/create elements:
-            "elements":elements,
-            #update/create descriptions:
-            "description":description,
-        })
         
+        # Create or update the monster in the database
+        obj, created = Monster.objects.update_or_create(
+            name=name,
+            defaults={
+                "species": species,
+                "elements": elements,
+                "description": description,
+            }
+        )
+        # Show success message
+        messages.success(request, f"Successfully imported {name}!")
+        
+        # Debug information (visible in server console)
+        print("API Response:", data)
+        print("Searching for:", query_name)
+        
+    # Handle HTTP errors (4xx, 5xx)
+    except requests.exceptions.HTTPError as http_err:
+        error_msg = f"HTTP error: {http_err}. Response: {resp.text[:200]}"
+        messages.error(request, "Failed to fetch monster data. Please try again.")
+        print(error_msg)
+        
+    # Handle connection errors, timeouts, etc.
+    except requests.exceptions.RequestException as req_err:
+        error_msg = f"Request failed: {req_err}"
+        messages.error(request, "Could not connect to the server. Please check your connection.")
+        print(error_msg)
+        
+    # Handle JSON parsing errors
+    except ValueError as json_err:
+        error_msg = f"Failed to parse JSON: {json_err}. Response: {resp.text[:200]}"
+        messages.error(request, "Invalid response from the server. Please try again.")
+        print(error_msg)
+        
+    # Catch any other unexpected errors
+    except Exception as e:
+        error_msg = f"Unexpected error: {str(e)}"
+        messages.error(request, "An unexpected error occurred.")
+        print(error_msg)
+
+    # Always redirect back to the monster list
+    return redirect("monster-list")
         
         
         

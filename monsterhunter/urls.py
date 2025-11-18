@@ -7,5 +7,5 @@ urlpatterns = [
     #make a url for deleting monsters:
     path("<int:pk>/delete/",views.delete_monster,name="delete-monster"),
     #create a url for importing monsters:
-    path("/import/",views.import_monster,name="import")
+    path("import/",views.import_monster,name="import")
 ]

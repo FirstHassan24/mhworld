@@ -8,6 +8,14 @@ Monster List
 <body>
 <h1>Monster List </h1>
 <h2> amount of monster:{{monsters|length}} </h2>
+<!-- show system messages:-->
+{% if messages%} 
+<ul class="messages">
+{% for message in messages%}
+<li>{{message}}</li>
+</ul>
+{% endfor %}
+{% endif %}
 <!--create a searchbar to import monsters from the API:-->
 <form method="post" action="{% url 'import'%}">  {% csrf_token %}
 <!--stores the value the user input from the view-->
