@@ -70,27 +70,6 @@ def delete_monster(request,pk):
     #show the confirmation page for get request:
     return render(request,"monsterhunter/monster_confirm_delete.html",{"monster":monster})
 
-#3. connect to an api:
-imported_monster = "https://mhw-db.com/monsters"
-def import_monster(request):
-    #if its not a post return to the list:
-    if request.method != "POST":
-        #do this incase of a GET request:
-        return redirect("monster-list")
-    #read the monster name the user typed then look it up in the database:
-    query_name = request.POST.get("query_name","").strip()
-    #if the user didnt type anything show a message error:
-    if not query_name:
-        messages.error(request,"please enter a monster")
-        #send them back to the list:
-        return redirect("monster-list")
-    #use try for code that might fail:
-# Import necessary modules
-from django.shortcuts import render, redirect
-from django.contrib import messages
-import requests
-from .models import Monster
-
 # Define the API endpoint for monster data
 imported_monster = "https://mhw-db.com/monsters"
 
@@ -119,6 +98,9 @@ def import_monster(request):
         for monster in data[:3]:  # Show first 3 monsters
             print(f"- {monster.get('name')} ({monster.get('species')})")
         print(f"\nSearching for: '{query_name}'")
+        print("\n=== DEBUG: Data Type ===")
+        print(f"Type of 'data': {type(data)}")
+        print(f"Number of monsters in response: {len(data)}")
         # Initialize variables for monster matching
         match = None
         # Convert search query to lowercase for case-insensitive comparison
