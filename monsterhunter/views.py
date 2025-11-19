@@ -142,8 +142,8 @@ def import_monster(request):
         messages.success(request, f"Successfully imported {name}!")
         
         # Debug information (visible in server console)
-        print("API Response:", data)
-        print("Searching for:", query_name)
+        # print("API Response:", data)
+        # print("Searching for:", query_name)
         
     # Handle HTTP errors (4xx, 5xx)
     except requests.exceptions.HTTPError as http_err:
