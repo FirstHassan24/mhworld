@@ -115,7 +115,10 @@ def import_monster(request):
         resp.raise_for_status()
         # Parse the JSON response
         data = resp.json()
-        
+        print("\n=== DEBUG: First 3 Monsters ===")
+        for monster in data[:3]:  # Show first 3 monsters
+            print(f"- {monster.get('name')} ({monster.get('species')})")
+            print(f"\nSearching for: '{query_name}'")
         # Initialize variables for monster matching
         match = None
         # Convert search query to lowercase for case-insensitive comparison
