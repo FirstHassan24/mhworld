@@ -16,5 +16,13 @@ class Monster(models.Model):
     #make django show me the name when printing the monster:
     def __str__(self):
         return self.name
+class Item(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+    rarity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.name} (⭐{self.rarity})"
+
     
 
