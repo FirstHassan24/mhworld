@@ -16,6 +16,8 @@ class Monster(models.Model):
     #make django show me the name when printing the monster:
     def __str__(self):
         return self.name
+    
+#creating a table for things  my monster can drop:
 class Item(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
@@ -23,6 +25,35 @@ class Item(models.Model):
 
     def __str__(self):
         return f"{self.name} (⭐{self.rarity})"
+
+#creating a table for the relationship between monster and item:
+class MonsterItemDrop(models.Model):
+    monster = models.ForeignKey(
+        Monster,
+        on_delete=models.CASCADE,
+        related_name="drops",       # monster.drops.all()
+    )
+    item = models.ForeignKey(
+        Item,
+        on_delete=models.CASCADE,
+        related_name="dropped_by",  # item.dropped_by.all()
+    )
+
+    method = models.CharField(
+        max_length=50,
+        help_text="carve, capture, quest reward, etc.",
+    )
+    rank = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text="low, high, master",
+    )
+    chance = models.IntegerField(
+        help_text="Drop chance percentage (e.g. 34 for 34%)",
+    )
+
+    def __str__(self):
+        return f"{self.monster} → {self.item} ({self.method}, {self.chance}%)"
 
     
 
