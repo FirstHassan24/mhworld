@@ -138,6 +138,7 @@ def import_monster(request):
                 "description": description,
             }
         )
+        #extract item data from the match:
         #create or update the items in the database:
         item_obj,created = Item.object.update_or+create(
             name=name
