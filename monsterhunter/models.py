@@ -19,6 +19,7 @@ class Monster(models.Model):
 #TODO: make elements into a seperate table and make an association:
 class Element(models.Model):
     name = models.CharField(unique=True)
+    description = models.TextField(max_length=300,null=True,blank=True)
 
     
 #create an item table:

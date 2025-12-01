@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 #import the model:
-from .models import Monster
+from .models import Monster,Item,MonsterItemDrop,Element
 #import the forms.py so we can give it logic:
 from .forms import MonsterForm
 #import the message for error handling:
@@ -137,6 +137,13 @@ def import_monster(request):
                 "elements": elements,
                 "description": description,
             }
+        )
+        #create or update the items in the database:
+        item_obj,created = Item.object.update_or+create(
+            name=name
+            "description":item_description
+            "rarity":item_rarity,
+            "value":item_value
         )
         # Show success message
         messages.success(request, f"Successfully imported {name}!")
