@@ -142,20 +142,27 @@ def import_monster(request):
         rewards = match.get("rewards",[])
         #loop over the rewards and extract the item list
         for reward in rewards:
-            #gets the reward dictionary:
+            #gets the item dictionary:
             item_data = reward.get("item")
             
-        #extract item data from the match:
-        
-        #create or update the items in the database:
-        item_obj,created = Item.objects.update_or_create(
-            name=item_name,
-            defaults={
-            "description":item_description,
-            "rarity":item_rarity,
-            "value":item_value,
-            }
-        )
+            #Extract the item fields from item_data
+            item_name = item_data.get("name")  
+            #we cant save an item with no name:
+            if not item_name:
+                continue
+            #grab each field from item_name:
+            item_description = item_name.get("description")
+            item_rarity = item_name.get("rarity",0)
+            item_value = item_name.get("value",0)
+            #create or update the the propertys of item_name:
+            item_obj,created = Item.objects.update_or_create(
+                name=item_name,
+                defaults={
+                "description":item_description,
+                "rarity":item_rarity,
+                "value":item_value,
+                }
+            )
         # Show success message
         messages.success(request, f"Successfully imported {name}!")
         
