@@ -164,11 +164,14 @@ def import_monster(request):
                 "value":item_value,
                 }
             )
-        #match the dict for method:
-        conditions = match.get("condition",[])
-        #loop over the method and grab the method used to get an item:
-        for method in conditions:
-            type = method.get("type","couldnt find the way to get the item")
+            #match the dict for method:
+            conditions = match.get("condition",[])
+            #extract the field that tells you what the method of getting the monster part is:
+            method = conditions.get("type","didnt get the item ")
+            #create/update the method from the database:
+            method_obj,created = Item.objects.update_or_create()
+        
+        
             
         #update/create the method used to get the item from the monster:
             item_carve
