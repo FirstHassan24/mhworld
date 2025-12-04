@@ -169,7 +169,13 @@ def import_monster(request):
             #extract the field that tells you what the method of getting the monster part is:
             method = conditions.get("type","didnt get the item ")
             #create/update the method from the database:
-            method_obj,created = Item.objects.update_or_create()
+            method_obj,created = MonsterItemDrop.objects.update_or_create(
+                name=item_name
+                default={
+                    "method":method,
+                    "chance":
+                }
+            )
         
         
             
