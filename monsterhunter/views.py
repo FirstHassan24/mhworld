@@ -149,12 +149,13 @@ def import_monster(request):
             item_name = item_data.get("name")  
             #we cant save an item with no name:
             if not item_name:
+                #skip those that arent a match:
                 continue
             #grab each field from item_name:
             item_description = item_name.get("description")
             item_rarity = item_name.get("rarity",0)
             item_value = item_name.get("value",0)
-            #create or update the the propertys of item_name:
+            #create or update the the properties of item_name:
             item_obj,created = Item.objects.update_or_create(
                 name=item_name,
                 defaults={
@@ -163,6 +164,14 @@ def import_monster(request):
                 "value":item_value,
                 }
             )
+        #match the dict for method:
+        conditions = match.get("condition",[])
+        #loop over the method and grab the method used to get an item:
+        for method in conditions:
+            type = method.get("type","couldnt find the way to get the item")
+            
+        #update/create the method used to get the item from the monster:
+            item_carve
         # Show success message
         messages.success(request, f"Successfully imported {name}!")
         
