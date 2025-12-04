@@ -143,7 +143,7 @@ def import_monster(request):
         #loop over the rewards and extract the item list
         for reward in rewards:
             #gets the item dictionary:
-            item_data = reward.get("item")
+            item_data = reward.get("item") or {}
             
             #Extract the item fields from item_data
             item_name = item_data.get("name")  
@@ -152,9 +152,9 @@ def import_monster(request):
                 #skip those that arent a match:
                 continue
             #grab each field from item_name:
-            item_description = item_name.get("description")
-            item_rarity = item_name.get("rarity",0)
-            item_value = item_name.get("value",0)
+            item_description = item_data.get("description")
+            item_rarity = item_data.get("rarity",0)
+            item_value = item_data.get("value",0)
             #create or update the the properties of item_name:
             item_obj,created = Item.objects.update_or_create(
                 name=item_name,
@@ -173,7 +173,7 @@ def import_monster(request):
                 name=item_name
                 default={
                     "method":method,
-                    "chance":
+                    "chance":chance,
                 }
             )
         
