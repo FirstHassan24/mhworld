@@ -165,17 +165,24 @@ def import_monster(request):
                 }
             )
             #match the dict for method:
-            conditions = match.get("condition",[])
-            #extract the field that tells you what the method of getting the monster part is:
-            method = conditions.get("type","didnt get the item ")
-            #create/update the method from the database:
-            method_obj,created = MonsterItemDrop.objects.update_or_create(
-                name=item_name
-                default={
-                    "method":method,
-                    "chance":chance,
-                }
-            )
+            conditions = reward.get("conditions",[])
+            #loop over the conditions list dictionary and extract "type"
+            for condition in conditions:
+                method = condition.get("type","no method was found")
+                #extract "chance" from the dict:
+                chance = condition.get("chance",0)
+                #create/update the method from the database:
+                method_obj,created = MonsterItemDrop.objects.update_or_create(
+                    # Monster instance that iv created/updated:
+                    monster = obj,
+                    #Item instance that iv created/updated:
+                    item = item_obj,
+                    #updates/create the methode of getting item:
+                    method = method,
+                    defaults={
+                        "chance":chance,
+                    }
+                )
         
         
             
