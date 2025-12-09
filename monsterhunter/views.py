@@ -86,10 +86,18 @@ def update_item(request,pk):
         form = ItemForm(request.POST,instance=Item)
         #make sure its valid
         if form.is_valid():
-            #save the changes to the same row in the database:
-            form.save()
             #create a message that tells you if youve successfuly updated:
             messages.success(request,"item updated :)")
+            #save the changes to the same row in the database:
+            form.save()
+            #after saving return to the homepage:
+            return redirect("monster-list")
+        #show  whats wrong if it fails:
+        else:
+            messages.error(request,"please fix this error :(")
+            #what does this do?:
+            form = ItemForm(instance=Item)
+            
 
 
 #make CRUD FUNCTION for MonsterItemdrop:
