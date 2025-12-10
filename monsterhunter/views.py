@@ -74,33 +74,6 @@ def delete_monster(request,pk):
 imported_monster = "https://mhw-db.com/monsters"
 
 def import_monster(request):
-
-#MAKE CRUD FUNCTION FOR ITEM:
-#create a function for updating items:
-def update_item(request,pk):
-    item = get_object_or_404(Item,pk=pk)
-    #Todo make a form for updating
-    #check if the user request is a post request:
-    if request.method == "POST":
-        #bind the form to the posted data and existing instances:
-        form = ItemForm(request.POST,instance=Item)
-        #make sure its valid
-        if form.is_valid():
-            #create a message that tells you if youve successfuly updated:
-            messages.success(request,"item updated :)")
-            #save the changes to the same row in the database:
-            form.save()
-            #after saving return to the homepage:
-            return redirect("monster-list")
-        #show  whats wrong if it fails:
-        else:
-            messages.error(request,"please fix this error :(")
-            #what does this do?:
-            form = ItemForm(instance=Item)
-            
-
-
-#make CRUD FUNCTION for MonsterItemdrop:
     # Check if the request method is not POST
     if request.method != "POST":
         # Redirect to monster list if not a POST request
@@ -248,6 +221,29 @@ def update_item(request,pk):
 
     # Always redirect back to the monster list
     return redirect("monster-list")
+#MAKE CRUD FUNCTION FOR ITEM:
+
+#create a function for updating items:
+def update_item(request,pk):
+    item = get_object_or_404(Item,pk=pk)
+    #Todo make a form for updating
+    #check if the user request is a post request:
+    if request.method == "POST":
+        #bind the form to the posted data and existing instances:
+        form = ItemForm(request.POST,instance=Item)
+        #make sure its valid
+        if form.is_valid():
+            #create a message that tells you if youve successfuly updated:
+            messages.success(request,"item updated :)")
+            #save the changes to the same row in the database:
+            form.save()
+            #after saving return to the homepage:
+            return redirect("monster-list")
+        #show  whats wrong if it fails:
+        else:
+            messages.error(request,"please fix this error :(")
+            #what does this do?:
+            form = ItemForm(instance=Item)
         
         
         
