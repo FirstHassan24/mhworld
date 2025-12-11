@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect,get_object_or_404
 #import the model:
 from .models import Monster,Item,MonsterItemDrop,Element
 #import the forms.py so we can give it logic:
-from .forms import MonsterForm
+#TODO: update the monster form so you can switch to an item form
+from .forms import MonsterForm,ItemForm
 #import the message for error handling:
 from django.contrib import messages
 #import the request library for handling publick API:
@@ -77,7 +78,7 @@ def update_item(request,pk):
     #check if the user request is a post request:
     if request.method == "POST":
         #bind the form to the posted data and existing instances:
-        form = ItemForm(request.POST,instance=Item)
+        form = ItemForm(request.POST,instance=item)
         #make sure its valid
         if form.is_valid():
             #create a message that tells you if youve successfuly updated:
@@ -89,8 +90,8 @@ def update_item(request,pk):
         #show  whats wrong if it fails:
         else:
             messages.error(request,"please fix this error :(")
-            #what does this do?:
-            form = ItemForm(instance=Item)
+            #GET that shows the form prefilled:
+            form = ItemForm(instance=item)
             #render it to the same form template & pass a flag so we can change the button text to update:
             return render(request,"monsterhunter/monster_form.html",{"form":form,"is_edit":True})
 
@@ -208,10 +209,6 @@ def import_monster(request):
                     }
                 )
         
-        
-            
-        #update/create the method used to get the item from the monster:
-            item_carve
         # Show success message
         messages.success(request, f"Successfully imported {name}!")
         
