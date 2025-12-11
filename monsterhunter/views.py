@@ -70,10 +70,10 @@ def delete_monster(request,pk):
     #show the confirmation page for get request:
     return render(request,"monsterhunter/monster_confirm_delete.html",{"monster":monster})
 #TODO:MAKE CRUD FUNCTION FOR ITEM:
+    #TODO: make a form for this function
 #create a function for updating items:
 def update_item(request,pk):
     item = get_object_or_404(Item,pk=pk)
-    #TODO: make a form for this function
     #check if the user request is a post request:
     if request.method == "POST":
         #bind the form to the posted data and existing instances:
@@ -93,6 +93,7 @@ def update_item(request,pk):
             form = ItemForm(instance=Item)
             #render it to the same form template & pass a flag so we can change the button text to update:
             return render(request,"monsterhunter/monster_form.html",{"form":form,"is_edit":True})
+
 # Define the API endpoint for monster data
 imported_monster = "https://mhw-db.com/monsters"
 
