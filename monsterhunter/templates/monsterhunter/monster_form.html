@@ -18,7 +18,7 @@
 {% csrf_token %}
 <!--render the form fields that shows our model:-->
 {{ form.as_p }}
-<!--make a button for creating monster and the text changes depending if user is creating or editing:-->
+<!--make a button for creating monster and the text changes depending if user is creating or updating:-->
 <button type=submit>
 {% if is_edit%} update {% else %} create {% endif %}
 </button>
