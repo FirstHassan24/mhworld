@@ -18,7 +18,7 @@ class Monster(models.Model):
         return self.name
 #TODO: make elements into a seperate table and make an association:
 class Element(models.Model):
-    name = models.CharField(unique=True)
+    name = models.CharField(unique=True,max_length=300)
     description = models.TextField(max_length=300,null=True,blank=True)
 
     
