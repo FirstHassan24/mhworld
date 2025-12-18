@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta name="description" content="Create or edit a Monster Hunter monster.">
+<meta name="keywords" content="Monster Hunter, monsters, create, edit">
 <!--make the title dynamicaly update what it display depending on which function im using:-->
 <title>
 {% if is_edit %}Edit monster {% else %}Create Monster {% endif %}
@@ -13,7 +15,7 @@
 {% if is_edit %} Edit monster {% else %} create a new monster {% endif %}
 </h1>
 <!--tell django to only display posted data:-->
-<form method ="post">
+<form method="post">
 <!--use the token to protect from maliciouse attacks-->
 {% csrf_token %}
 <!--render the form fields that shows our model:-->
@@ -24,7 +26,7 @@
 </button>
 </form>
 <!--link back to the list of monsters:-->
-<a href="{% url 'monster-list' %}">
+<a href="{% url 'monster-list' %}">Back to monster list
 </a>
 </body>
 </html>
