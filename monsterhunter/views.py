@@ -163,6 +163,7 @@ def import_monster(request):
                 "description": description,
             }
         )
+        #phase 4:
         #grab the rewards dict from the monsters youve matched:
         rewards = match.get("rewards",[])
         #loop over the rewards and extract the item list
