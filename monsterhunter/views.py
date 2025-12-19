@@ -92,7 +92,7 @@ def update_item(request,pk):
             messages.error(request,"please fix this error :(")
             #GET that shows the form prefilled:
             form = ItemForm(instance=item)
-            #render it to the same form template & pass a flag so we can change the button text to update:
+            #TODO:render it to the same form template & pass a flag so we can change the button text to update:
             return render(request,"monsterhunter/monster_form.html",{"form":form,"is_edit":True})
 
 # Define the API endpoint for monster data
