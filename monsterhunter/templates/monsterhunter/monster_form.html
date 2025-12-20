@@ -24,6 +24,8 @@
 <button type=submit>
 {% if is_edit%} update {% else %} create {% endif %}
 </button>
+<!--Todo: make a button for updating  monster items-->
+<button type="submit">{% if is_edit%} update-item {% else %} create-item {% endif%}</button>
 </form>
 <!--link back to the list of monsters:-->
 <a href="{% url 'monster-list' %}">Back to monster list
