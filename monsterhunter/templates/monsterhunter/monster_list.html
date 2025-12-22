@@ -37,6 +37,7 @@ Monster List
 </a>
 <!--put the delete button here:-->
 <a href="{% url 'delete-monster' pk=monster.pk %}"> delete</a>
+<!--lets me see the item that each monster drops-->
 </li>
 {% endfor %}
 </ul>
@@ -49,7 +50,7 @@ Monster List
     <!--grab the name of each item in the database:-->
     {{item.name}}
     <!--create a link for each item in the database: -->
-    <a href="{% url 'update-item' item.pk %}">update item</a>
+    <a href="{% url 'update-item' pk=item.pk %}">update item</a>
 {% endfor %}
 </body>
 </html>

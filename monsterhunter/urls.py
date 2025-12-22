@@ -9,5 +9,5 @@ urlpatterns = [
     #create a url for importing monsters:
     path("import/",views.import_monster,name="import"),
     #create a url for updating items:
-    path("<int:pk>/edit/",views.update_item,name="update-item")
+    path("item/<int:pk>/edit/",views.update_item,name="update-item")
 ]

@@ -28,12 +28,13 @@ def create_monster(request):
         #render the form model inside the form template:
         return render(request,"monsterhunter/monster_form.html",{"form":form})
         
-#create a function for storing the monsters:
+#create a function for displaying the monsters:
 def monster_list(request):
     #store all the monsters in a variable:
     monsters = Monster.objects.all()
+    items = Item.objects.all()
     #tell it which folder and file html to render the list:
-    return render(request,"monsterhunter/monster_list.html",{"monsters":monsters})
+    return render(request,"monsterhunter/monster_list.html",{"monsters":monsters,"items":items})
 
 #create a function for updating each monster information:
 def monster_update(request,pk):
