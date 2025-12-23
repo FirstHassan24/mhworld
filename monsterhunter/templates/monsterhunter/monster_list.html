@@ -32,7 +32,7 @@ Monster List
 <!--loop over the monster model and display each monster as a list:-->
 {% for monster in monsters%}
 <!--grab the name field of the monsters and make it a list: check if monster.name is showing update-->
-<li> {{monster.name}} - {{monster.type}}
+<li> {{monster.name}} - {{monster.species}}
 <a href="{% url 'update-monster' pk=monster.pk %}"> edit 
 </a>
 <!--put the delete button here:-->
