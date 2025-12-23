@@ -95,7 +95,11 @@ def update_item(request,pk):
             form = ItemForm(instance=item)
             #TODO:render it to the same form template & pass a flag so we can change the button text to update:
             return render(request,"monsterhunter/monster_form.html",{"form":form,"is_edit":True})
-
+#find all the drops for that monster and get its pk:
+def monster_drops(request,pk):
+    #store the monster drops inside a variable:
+    drops = get_object_or_404(MonsterItemDrop,pk=pk)
+    return render(request,"drop_list.html",{"drops":drops})
 # Define the API endpoint for monster data
 imported_monster = "https://mhw-db.com/monsters"
 
